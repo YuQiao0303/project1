@@ -37,7 +37,7 @@ int main()
 	
 	//double a = 1.0;
 	//double b = a*a;
-	printf("%lf\n",b);
+	//printf("%lf\n",b);
 	int n, pointNum, i;
 	printf("请输入空间内所要放置的气球数量: ");
 	scanf_s("%d", &n);
