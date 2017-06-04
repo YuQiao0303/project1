@@ -26,18 +26,14 @@ double distance(Ball b1, Ball b2);          //判断气球圆心之间的距离
 double abs(double num);					    //取绝对值
 int judge(Ball b);							//判断新加入的气球是否符合规则
 void putBall();								//改变气球的初始位置，求的满足条件的气球
-//全局变量
+											//全局变量
 BallList *head = NULL;
 double step = 0.01;							//改变气球位置的最小单位
 int num = 0;                                //放置气球的个数
-double sumr = 0.0;							//用来记录r^2之和
+double sumr = 0;							//用来记录r^2之和
 
 int main()
 {
-	
-	//double a = 1.0;
-	//double b = a*a;
-	//printf("%lf\n",b);
 	int n, pointNum, i;
 	printf("请输入空间内所要放置的气球数量: ");
 	scanf_s("%d", &n);
@@ -61,10 +57,10 @@ void insert(Ball ball)
 
 void putBall()
 {
-	Ball ball = { -1 , -1 , 0 };
+	Ball ball = { -1 + step, -1 + step, 0 };
 	Ball maxBall = ball;
 	int i, j;
-	for (i = 0; ball.x < 1; ++i)  
+	for (i = 0; ball.x < 1; ++i)
 	{
 		ball.x += step;  //x的坐标递增step以穷尽所有情况
 		ball.y = -1 + step;
@@ -79,7 +75,7 @@ void putBall()
 				{
 					maxBall = ball;
 				}
-				ball.r += rstep; 
+				ball.r += rstep;
 				if (!judge(ball))    //如果这样放的球不符合条件，则将半径递增的step减少十倍
 				{
 					ball.r -= rstep;
@@ -93,7 +89,7 @@ void putBall()
 		insert(maxBall);
 		num++;
 		sumr += maxBall.r * maxBall.r;
-		printf("%d\t %lf\t %lf\t %lf\t %lf \n", num, maxBall.x, maxBall.y, maxBall.r, sumr);
+		printf("%d\t %.3lf\t %.3lf\t %.3lf\t %lf \n", num, maxBall.x, maxBall.y, maxBall.r, sumr);
 	}
 }
 
@@ -131,5 +127,6 @@ double distance(Ball b1, Ball b2)
 	double y2 = b2.y;
 	return pow((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2), 0.5);
 }
+
 
 
