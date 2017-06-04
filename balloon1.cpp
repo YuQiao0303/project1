@@ -35,8 +35,8 @@ double sumr = 0.0;							//用来记录r^2之和
 int main()
 {
 	
-	double a = 1.0;
-	double b = a*a;
+	//double a = 1.0;
+	//double b = a*a;
 	printf("%lf\n",b);
 	int n, pointNum, i;
 	printf("请输入空间内所要放置的气球数量: ");
@@ -93,7 +93,7 @@ void putBall()
 		insert(maxBall);
 		num++;
 		sumr += maxBall.r * maxBall.r;
-		printf("%d\t %.lf\t %.lf\t %.lf\t %lf \n", num, maxBall.x, maxBall.y, maxBall.r, sumr);
+		printf("%d\t %lf\t %lf\t %lf\t %lf \n", num, maxBall.x, maxBall.y, maxBall.r, sumr);
 	}
 }
 
