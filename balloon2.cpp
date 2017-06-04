@@ -1,58 +1,58 @@
-// balloon2.cpp : ¶¨Òå¿ØÖÆÌ¨Ó¦ÓÃ³ÌĞòµÄÈë¿Úµã¡£
+// balloon2.cpp : å®šä¹‰æ§åˆ¶å°åº”ç”¨ç¨‹åºçš„å…¥å£ç‚¹ã€‚
 //
 #include "stdafx.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
-//////////ÔÚballoon1 µÄ»ù´¡ÉÏ£¬½«ÕÏ°­ÎïÊÓÎª°ë¾¶0µÄÆøÇò£¬·ÅÖÃµÚÒ»¸öÆøÇòÖ®Ç°£¬ÏÈ·ÅºÃËùÓĞÕÏ°­Îï¼´¿É
-//ÆøÇò
+//////////åœ¨balloon1 çš„åŸºç¡€ä¸Šï¼Œå°†éšœç¢ç‰©è§†ä¸ºåŠå¾„0çš„æ°”çƒï¼Œæ”¾ç½®ç¬¬ä¸€ä¸ªæ°”çƒä¹‹å‰ï¼Œå…ˆæ”¾å¥½æ‰€æœ‰éšœç¢ç‰©å³å¯
+//æ°”çƒ
 typedef struct ball
 {
-	double x;       //Ô²ĞÄx×ø±ê
-	double y;		//Ô²ĞÄy×ø±ê
-	double r;		//Ô²°ë¾¶
+	double x;       //åœ†å¿ƒxåæ ‡
+	double y;		//åœ†å¿ƒyåæ ‡
+	double r;		//åœ†åŠå¾„
 }Ball;
 
-//ÓÃÀ´´¢´æÒÑ¾­·ÅÖÃµÄÆøÇò
+//ç”¨æ¥å‚¨å­˜å·²ç»æ”¾ç½®çš„æ°”çƒ
 typedef struct ballList
 {
 	struct ballList * next;
 	Ball ball;
 }BallList;
 
-void insert(Ball ball);						//²åÈëÆøÇò
-double distance(Ball b1, Ball b2);          //ÅĞ¶ÏÆøÇòÖ®¼äµÄ¾àÀë
-double abs(double num);					    //È¡¾ø¶ÔÖµ
-int judge(Ball b);							//ÅĞ¶ÏĞÂ¼ÓÈëµÄÆøÇòÊÇ·ñ·ûºÏ¹æÔò
-void putBall();								//¸Ä±äÆøÇòµÄ³õÊ¼Î»ÖÃ£¬ÇóµÄÂú×ãÌõ¼şµÄÆøÇò
-void putPoint(double x, double y);			//·ÅÖÃÕÏ°­Îï
+void insert(Ball ball);						//æ’å…¥æ°”çƒ
+double distance(Ball b1, Ball b2);          //åˆ¤æ–­æ°”çƒä¹‹é—´çš„è·ç¦»
+double abs(double num);					    //å–ç»å¯¹å€¼
+int judge(Ball b);							//åˆ¤æ–­æ–°åŠ å…¥çš„æ°”çƒæ˜¯å¦ç¬¦åˆè§„åˆ™
+void putBall();								//æ”¹å˜æ°”çƒçš„åˆå§‹ä½ç½®ï¼Œæ±‚çš„æ»¡è¶³æ¡ä»¶çš„æ°”çƒ
+void putPoint(double x, double y);			//æ”¾ç½®éšœç¢ç‰©
 
 BallList *head = NULL;
-double step = 0.01;							//¸Ä±äÆøÇòÎ»ÖÃµÄ×îĞ¡µ¥Î»
-int num = 0;                                //·ÅÖÃÆøÇòµÄ¸öÊı
-double sumr = 0;							//ÓÃÀ´¼ÇÂ¼r^2Ö®ºÍ
+double step = 0.01;							//æ”¹å˜æ°”çƒä½ç½®çš„æœ€å°å•ä½
+int num = 0;                                //æ”¾ç½®æ°”çƒçš„ä¸ªæ•°
+double sumr = 0;							//ç”¨æ¥è®°å½•r^2ä¹‹å’Œ
 
 int main()
 {
 	int n, pointNum, i;
-	printf("ÇëÊäÈë¿Õ¼äÄÚËùÒª·ÅÖÃµÄÆøÇòÊıÁ¿: ");
+	printf("è¯·è¾“å…¥ç©ºé—´å†…æ‰€è¦æ”¾ç½®çš„æ°”çƒæ•°é‡: ");
 	scanf_s("%d", &n);
-	printf("ÇëÊäÈë¿Õ¼äÄÚÕÏ°­ÎïµÄÊıÁ¿: ");
+	printf("è¯·è¾“å…¥ç©ºé—´å†…éšœç¢ç‰©çš„æ•°é‡: ");
 	scanf_s("%d", &pointNum);
 	for (i = 0; i < pointNum; i++)
 	{
-		printf("ÇëÊäÈëµÚ%d¸öµãµÄ×ø±ê(Æä¼äÓÃ¿Õ¸ñ¸ô¿ª)£º", i + 1);
+		printf("è¯·è¾“å…¥ç¬¬%dä¸ªç‚¹çš„åæ ‡(å…¶é—´ç”¨ç©ºæ ¼éš”å¼€)ï¼š", i + 1);
 		double x, y;
 		scanf_s("%lf %lf", &x, &y);
 		putPoint(x, y);
 	}
-	printf("\nÇò±àºÅ\t x×ø±ê\t y×ø±ê\t °ë¾¶\t r^2Ö®ºÍ\n");
+	printf("\nçƒç¼–å·\t xåæ ‡\t yåæ ‡\t åŠå¾„\t r^2ä¹‹å’Œ\n");
 	for (i = 0; i < n; i++)
 	{
 		putBall();
 	}
-	printf("\nr^2Ö®ºÍÎª:\t %lf\n", sumr);
-
+	printf("\nr^2ä¹‹å’Œä¸º:\t %lf\n", sumr);
+        while(1);
 	return 0;
 }
 
